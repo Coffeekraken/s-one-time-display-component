@@ -28,12 +28,11 @@ This webcomponent does not provide any default css so you will have to handle th
 
 
 
+## Attributes
 
+Here's the list of available attribute to set on the element.
 
-## Properties
-
-
-### timeout:
+### timeout
 
 How many times in seconds to hide the element when dismissed
 
@@ -42,18 +41,18 @@ Type : **{ [Number](https://developer.mozilla.org/fr/docs/Web/JavaScript/Referen
 Default : **3600 * 24 * 365**
 
 
-### method:
+### method
 
 Set the method to use to store the component display status
 
-Values : **{cookie,localStorage,sessionStorage}**
+Values : **cookie,localStorage,sessionStorage**
 
 Type : **{ [String](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/String) }**
 
 Default : **cookie**
 
 
-### name:
+### name
 
 Set the name used to save the cookie / localStorage or sessionStorage
 
@@ -62,7 +61,7 @@ Type : **{ [String](https://developer.mozilla.org/fr/docs/Web/JavaScript/Referen
 Default : **s-one-time-display**
 
 
-### onDismiss:
+### onDismiss
 
 On dismiss callback. Can be an actual function or a string that will be evaluated by javascript
 
@@ -71,22 +70,6 @@ Type : **{ [Function](https://developer.mozilla.org/fr/docs/Web/JavaScript/Refer
 Default : **null**
 
 
-### disabled:
-
-Set if the element is disabled or not.
-This will be removed if the element is enabled
-
-Type : **{ [Boolean](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Boolean) }**
-
-Default : **true**
-
-
-### enabled:
-
-Set if the element is enabled
-This will be removed id the element is disabled
-
-Type : **{ [Boolean](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Boolean) }**
 
 
 ## Methods
@@ -94,19 +77,16 @@ Type : **{ [Boolean](https://developer.mozilla.org/fr/docs/Web/JavaScript/Refere
 
 ### updateStatus
 
-updateStatus
 Update the element status
 
 
 ### reset
 
-reset
 Reset the storage
 
 
 ### isDismissed
 
-isDismissed
 Return if the component has been dismissed or not
 
 Return **{ [Boolean](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Boolean) }** The dismiss status
@@ -114,7 +94,6 @@ Return **{ [Boolean](https://developer.mozilla.org/fr/docs/Web/JavaScript/Refere
 
 ### getDismissedTimestamp
 
-getDismissedTimestamp
 Return the timestamp when the element has been dismissed
 
 Return **{ Integer }** The timestampe when the element has been dismissed
@@ -122,5 +101,4 @@ Return **{ Integer }** The timestampe when the element has been dismissed
 
 ### dismiss
 
-dismiss
 Dismiss the displayed element
