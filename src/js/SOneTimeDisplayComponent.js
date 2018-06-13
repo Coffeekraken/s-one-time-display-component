@@ -49,44 +49,50 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 		return {
 			/**
 			 * How many times in seconds to hide the element when dismissed
+			 * @prop
 			 * @type  	{Number}
 			 */
-			timeout: 3600 * 24 * 365,
+			timeout : 3600 * 24 * 365,
 
 			/**
 			 * Set the method to use to store the component display status
-			 * @values 	{cookie,localStorage,sessionStorage}
+			 * @prop
+			 * @values 	cookie,localStorage,sessionStorage
 			 * @type 	{String}
 			 */
-			method: 'cookie',
+			method : 'cookie',
 
 			/**
 			 * Set the name used to save the cookie / localStorage or sessionStorage
+			 * @prop
 			 * @type 	{String}
 			 */
-			name: 's-one-time-display',
+			name : 's-one-time-display',
 
 			/**
 			 * On dismiss callback. Can be an actual function or a string that will be evaluated by javascript
+			 * @prop
 			 * @type 	{Function}
 			 */
-			onDismiss: null,
+			onDismiss : null,
 
 			/**
 			 * Set if the element is disabled or not.
 			 * This will be removed if the element is enabled
 			 * @physicalProp
 			 * @type 		{Boolean}
+			 * @private
 			 */
-			disabled: true,
+			disabled : true,
 
 			/**
 			 * Set if the element is enabled
 			 * This will be removed id the element is disabled
 			 * @physicalProp
 			 * @type 		{Boolean}
+			 * @private
 			 */
-			enabled: false
+			enabled : false
 		}
 	}
 
@@ -118,7 +124,6 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 	}
 
 	/**
-	 * updateStatus
 	 * Update the element status
 	 * @return 	{SOneTimeDisplayComponent}
 	 */
@@ -138,7 +143,6 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 	}
 
 	/**
-	 * _onDismiss
 	 * When the click on the "dismiss" element
 	 * @param	{MouseEvent} 	e 	The mouse event
 	 * @return 	{void}
@@ -149,7 +153,6 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 	}
 
 	/**
-	 * reset
 	 * Reset the storage
 	 * @return 	{SOneTimeDisplayComponent}
 	 */
@@ -171,7 +174,6 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 	}
 
 	/**
-	 * isDismissed
 	 * Return if the component has been dismissed or not
 	 * @return 	{Boolean} 		The dismiss status
 	 */
@@ -192,7 +194,6 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 	}
 
 	/**
-	 * getDismissedTimestamp
 	 * Return the timestamp when the element has been dismissed
 	 * @return 	{Integer} 	The timestampe when the element has been dismissed
 	 */
@@ -213,11 +214,10 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 			break;
 		}
 		// the element has been dismissed
-		return parseFloat(dismissedTimestamp);
+		return parseInt(dismissedTimestamp);
 	}
 
 	/**
-	 * dismiss
 	 * Dismiss the displayed element
 	 * @return  	{SOneTimeDisplayComponent}
 	 */
@@ -226,15 +226,15 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 		switch(this.props.method.toLowerCase()) {
 			case 'cookie':
 				// set the cookie
-				Cookies.set(this.props.name, new Date().getTime() / 1000, {
+				Cookies.set(this.props.name, parseInt(new Date().getTime() / 1000), {
 					expires : new Date(new Date().getTime() + this.props.timeout * 1000)
 				});
 			break;
 			case 'localstorage':
-				localStorage.setItem(this.props.name, new Date().getTime() / 1000);
+				localStorage.setItem(this.props.name, parseInt(new Date().getTime() / 1000));
 			break;
 			case 'sessionstorage':
-				sessionstorage.setItem(this.props.name, new Date().getTime() / 1000);
+				sessionstorage.setItem(this.props.name, parseInt(new Date().getTime() / 1000));
 			break;
 		}
 		// dismiss callback

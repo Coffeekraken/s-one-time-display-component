@@ -80,7 +80,6 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 		}
 
 		/**
-   * updateStatus
    * Update the element status
    * @return 	{SOneTimeDisplayComponent}
    */
@@ -103,7 +102,6 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 		}
 
 		/**
-   * _onDismiss
    * When the click on the "dismiss" element
    * @param	{MouseEvent} 	e 	The mouse event
    * @return 	{void}
@@ -117,7 +115,6 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 		}
 
 		/**
-   * reset
    * Reset the storage
    * @return 	{SOneTimeDisplayComponent}
    */
@@ -142,7 +139,6 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 		}
 
 		/**
-   * isDismissed
    * Return if the component has been dismissed or not
    * @return 	{Boolean} 		The dismiss status
    */
@@ -166,7 +162,6 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 		}
 
 		/**
-   * getDismissedTimestamp
    * Return the timestamp when the element has been dismissed
    * @return 	{Integer} 	The timestampe when the element has been dismissed
    */
@@ -190,11 +185,10 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 					break;
 			}
 			// the element has been dismissed
-			return parseFloat(dismissedTimestamp);
+			return parseInt(dismissedTimestamp);
 		}
 
 		/**
-   * dismiss
    * Dismiss the displayed element
    * @return  	{SOneTimeDisplayComponent}
    */
@@ -206,15 +200,15 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 			switch (this.props.method.toLowerCase()) {
 				case 'cookie':
 					// set the cookie
-					_jsCookie2.default.set(this.props.name, new Date().getTime() / 1000, {
+					_jsCookie2.default.set(this.props.name, parseInt(new Date().getTime() / 1000), {
 						expires: new Date(new Date().getTime() + this.props.timeout * 1000)
 					});
 					break;
 				case 'localstorage':
-					localStorage.setItem(this.props.name, new Date().getTime() / 1000);
+					localStorage.setItem(this.props.name, parseInt(new Date().getTime() / 1000));
 					break;
 				case 'sessionstorage':
-					sessionstorage.setItem(this.props.name, new Date().getTime() / 1000);
+					sessionstorage.setItem(this.props.name, parseInt(new Date().getTime() / 1000));
 					break;
 			}
 			// dismiss callback
@@ -255,25 +249,29 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 			return {
 				/**
      * How many times in seconds to hide the element when dismissed
+     * @prop
      * @type  	{Number}
      */
 				timeout: 3600 * 24 * 365,
 
 				/**
      * Set the method to use to store the component display status
-     * @values 	{cookie,localStorage,sessionStorage}
+     * @prop
+     * @values 	cookie,localStorage,sessionStorage
      * @type 	{String}
      */
 				method: 'cookie',
 
 				/**
      * Set the name used to save the cookie / localStorage or sessionStorage
+     * @prop
      * @type 	{String}
      */
 				name: 's-one-time-display',
 
 				/**
      * On dismiss callback. Can be an actual function or a string that will be evaluated by javascript
+     * @prop
      * @type 	{Function}
      */
 				onDismiss: null,
@@ -283,6 +281,7 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
      * This will be removed if the element is enabled
      * @physicalProp
      * @type 		{Boolean}
+     * @private
      */
 				disabled: true,
 
@@ -291,6 +290,7 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
      * This will be removed id the element is disabled
      * @physicalProp
      * @type 		{Boolean}
+     * @private
      */
 				enabled: false
 			};
