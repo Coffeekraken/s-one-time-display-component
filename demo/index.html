@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="dist/css/style.css" />
+</head>
+<body>
+
+	<s-one-time-display timeout="86400" on-dismiss="onDismiss">
+		<p class="p m-b">I will be displayed until someone click on the button bellow</p>
+		<button class="btn" s-one-time-display-dismiss>
+			Dismiss
+		</button>
+	</s-one-time-display>
+	<script>
+		function onDismiss() {
+			alert('Dismiss');
+		}
+	</script>
+
+	<script src="dist/js/app.js"></script>
+</body>
+</html>
