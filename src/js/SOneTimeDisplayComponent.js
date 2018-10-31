@@ -1,5 +1,6 @@
 import SWebComponent from 'coffeekraken-sugar/js/core/SWebComponent'
 import Cookies from 'js-cookie'
+import { IronDB } from 'iron-db'
 
 /**
  * @class 	SOneTimeDisplayComponent
@@ -57,10 +58,10 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 			/**
 			 * Set the method to use to store the component display status
 			 * @prop
-			 * @values 	cookie,localStorage,sessionStorage
+			 * @values 	cookie,localStorage,sessionStorage,ironDb
 			 * @type 	{String}
 			 */
-			method : 'cookie',
+			method : 'ironDb',
 
 			/**
 			 * Set the name used to save the cookie / localStorage or sessionStorage
@@ -129,17 +130,19 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 	 */
 	updateStatus() {
 		// check if is dismissed
-		if (this.isDismissed()) {
-			this.setProps({
-				enabled : false,
-				disabled : true
-			});
-		} else {
-			this.setProps({
-				enabled : true,
-				disabled : false
-			});
-		}
+		this.isDismissed().then((value) => {
+			if (value) {
+				this.setProps({
+					enabled : false,
+					disabled : true
+				});
+			} else {
+				this.setProps({
+					enabled : true,
+					disabled : false
+				});
+			}
+		});
 	}
 
 	/**
@@ -168,6 +171,9 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 			case 'sessionstorage':
 				sessionStorage.removeItem(this.props.name);
 			break;
+			case 'irondb':
+				IronDB.remove(this.props.name);
+			break;
 		}
 		// maintain chainability
 		return this;
@@ -177,8 +183,8 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 	 * Return if the component has been dismissed or not
 	 * @return 	{Boolean} 		The dismiss status
 	 */
-	isDismissed() {
-		const dismissedTimestamp = this.getDismissedTimestamp();
+	async isDismissed() {
+		const dismissedTimestamp = await this.getDismissedTimestamp();
 		if ( ! dismissedTimestamp) return false;
 		// check the difference between now and the dismissed
 		// timestamp, depending on the timeout in settings
@@ -197,24 +203,20 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 	 * Return the timestamp when the element has been dismissed
 	 * @return 	{Integer} 	The timestampe when the element has been dismissed
 	 */
-	getDismissedTimestamp() {
-		let dismissedTimestamp;
+	async getDismissedTimestamp() {
 		// switch on method
 		switch(this.props.method.toLowerCase()) {
 			case 'cookie':
-				dismissedTimestamp = Cookies.get(this.props.name);
-			break;
+				return parseInt(Cookies.get(this.props.name));
 			case 'localstorage':
-				dismissedTimestamp = localStorage.getItem(this.props.name);
-			break;
+				return parseInt(localStorage.getItem(this.props.name));
 			case 'sessionstorage':
-				dismissedTimestamp = sessionStorage.getItem(this.props.name);			break;
+				return parseInt(sessionStorage.getItem(this.props.name));
+			case 'irondb':
+				return parseInt(await IronDB.get(this.props.name));
 			default:
 				throw 'You need to set a method through settings in order to use this component... {cookie|localStorage|sessionStorage}';
-			break;
 		}
-		// the element has been dismissed
-		return parseInt(dismissedTimestamp);
 	}
 
 	/**
@@ -235,6 +237,9 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 			break;
 			case 'sessionstorage':
 				sessionstorage.setItem(this.props.name, parseInt(new Date().getTime() / 1000));
+			break;
+			case 'irondb':
+				IronDB.set(this.props.name, parseInt(new Date().getTime() / 1000));
 			break;
 		}
 		// dismiss callback

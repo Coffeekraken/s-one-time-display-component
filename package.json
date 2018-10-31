@@ -1,6 +1,6 @@
 {
   "name": "coffeekraken-s-one-time-display-component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Webcomponent that provide the ability to display itself depending on a cookie or a local|sessionStorage flag",
   "main": "dist/index.js",
   "homepage": "http://coffeekraken.io",
@@ -38,8 +38,12 @@
     "changelog": "git-changelog --version_name $npm_package_version  --app_name $npm_package_name --intro \"$npm_package_description\" --logo \".resources/coffeekraken-logo.jpg\""
   },
   "keywords": [
-    "one", "time", "display",
-    "cookie", "localStorage", "sessionStorage",
+    "one",
+    "time",
+    "display",
+    "cookie",
+    "localStorage",
+    "sessionStorage",
     "webcomponent",
     "component",
     "html",
@@ -64,6 +68,7 @@
   },
   "dependencies": {
     "coffeekraken-sugar": "^1.0.5",
+    "iron-db": "^0.1.1",
     "js-cookie": "^2.2.0"
   },
   "devDependencies": {
