@@ -27,7 +27,7 @@
 	</a>
 </p>
 
-Webcomponent that provide the ability to display itself depending on a cookie or a local|sessionStorage flag.
+Webcomponent that provide the ability to display itself depending on a cookie, a local|sessionStorage or an irondb flag.
 
 ## Table of content
 
