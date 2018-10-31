@@ -16,7 +16,11 @@ var _jsCookie = require('js-cookie');
 
 var _jsCookie2 = _interopRequireDefault(_jsCookie);
 
+var _ironDb = require('iron-db');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -87,18 +91,22 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 	}, {
 		key: 'updateStatus',
 		value: function updateStatus() {
+			var _this2 = this;
+
 			// check if is dismissed
-			if (this.isDismissed()) {
-				this.setProps({
-					enabled: false,
-					disabled: true
-				});
-			} else {
-				this.setProps({
-					enabled: true,
-					disabled: false
-				});
-			}
+			this.isDismissed().then(function (value) {
+				if (value) {
+					_this2.setProps({
+						enabled: false,
+						disabled: true
+					});
+				} else {
+					_this2.setProps({
+						enabled: true,
+						disabled: false
+					});
+				}
+			});
 		}
 
 		/**
@@ -133,6 +141,9 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 				case 'sessionstorage':
 					sessionStorage.removeItem(this.props.name);
 					break;
+				case 'irondb':
+					_ironDb.IronDB.remove(this.props.name);
+					break;
 			}
 			// maintain chainability
 			return this;
@@ -145,21 +156,58 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 
 	}, {
 		key: 'isDismissed',
-		value: function isDismissed() {
-			var dismissedTimestamp = this.getDismissedTimestamp();
-			if (!dismissedTimestamp) return false;
-			// check the difference between now and the dismissed
-			// timestamp, depending on the timeout in settings
-			var now = new Date().getTime() / 1000;
-			if (dismissedTimestamp + this.props.timeout < now) {
-				// reset the storage
-				this.reset();
-				// the item is not dismissed
-				return false;
+		value: function () {
+			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+				var dismissedTimestamp, now;
+				return regeneratorRuntime.wrap(function _callee$(_context) {
+					while (1) {
+						switch (_context.prev = _context.next) {
+							case 0:
+								_context.next = 2;
+								return this.getDismissedTimestamp();
+
+							case 2:
+								dismissedTimestamp = _context.sent;
+
+								if (dismissedTimestamp) {
+									_context.next = 5;
+									break;
+								}
+
+								return _context.abrupt('return', false);
+
+							case 5:
+								// check the difference between now and the dismissed
+								// timestamp, depending on the timeout in settings
+								now = new Date().getTime() / 1000;
+
+								if (!(dismissedTimestamp + this.props.timeout < now)) {
+									_context.next = 9;
+									break;
+								}
+
+								// reset the storage
+								this.reset();
+								// the item is not dismissed
+								return _context.abrupt('return', false);
+
+							case 9:
+								return _context.abrupt('return', true);
+
+							case 10:
+							case 'end':
+								return _context.stop();
+						}
+					}
+				}, _callee, this);
+			}));
+
+			function isDismissed() {
+				return _ref.apply(this, arguments);
 			}
-			// the element is dismissed
-			return true;
-		}
+
+			return isDismissed;
+		}()
 
 		/**
    * Return the timestamp when the element has been dismissed
@@ -168,25 +216,51 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 
 	}, {
 		key: 'getDismissedTimestamp',
-		value: function getDismissedTimestamp() {
-			var dismissedTimestamp = void 0;
-			// switch on method
-			switch (this.props.method.toLowerCase()) {
-				case 'cookie':
-					dismissedTimestamp = _jsCookie2.default.get(this.props.name);
-					break;
-				case 'localstorage':
-					dismissedTimestamp = localStorage.getItem(this.props.name);
-					break;
-				case 'sessionstorage':
-					dismissedTimestamp = sessionStorage.getItem(this.props.name);break;
-				default:
-					throw 'You need to set a method through settings in order to use this component... {cookie|localStorage|sessionStorage}';
-					break;
+		value: function () {
+			var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+				return regeneratorRuntime.wrap(function _callee2$(_context2) {
+					while (1) {
+						switch (_context2.prev = _context2.next) {
+							case 0:
+								_context2.t0 = this.props.method.toLowerCase();
+								_context2.next = _context2.t0 === 'cookie' ? 3 : _context2.t0 === 'localstorage' ? 4 : _context2.t0 === 'sessionstorage' ? 5 : _context2.t0 === 'irondb' ? 6 : 11;
+								break;
+
+							case 3:
+								return _context2.abrupt('return', parseInt(_jsCookie2.default.get(this.props.name)));
+
+							case 4:
+								return _context2.abrupt('return', parseInt(localStorage.getItem(this.props.name)));
+
+							case 5:
+								return _context2.abrupt('return', parseInt(sessionStorage.getItem(this.props.name)));
+
+							case 6:
+								_context2.t1 = parseInt;
+								_context2.next = 9;
+								return _ironDb.IronDB.get(this.props.name);
+
+							case 9:
+								_context2.t2 = _context2.sent;
+								return _context2.abrupt('return', (0, _context2.t1)(_context2.t2));
+
+							case 11:
+								throw 'You need to set a method through settings in order to use this component... {cookie|localStorage|sessionStorage}';
+
+							case 12:
+							case 'end':
+								return _context2.stop();
+						}
+					}
+				}, _callee2, this);
+			}));
+
+			function getDismissedTimestamp() {
+				return _ref2.apply(this, arguments);
 			}
-			// the element has been dismissed
-			return parseInt(dismissedTimestamp);
-		}
+
+			return getDismissedTimestamp;
+		}()
 
 		/**
    * Dismiss the displayed element
@@ -209,6 +283,9 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 					break;
 				case 'sessionstorage':
 					sessionstorage.setItem(this.props.name, parseInt(new Date().getTime() / 1000));
+					break;
+				case 'irondb':
+					_ironDb.IronDB.set(this.props.name, parseInt(new Date().getTime() / 1000));
 					break;
 			}
 			// dismiss callback
@@ -257,10 +334,10 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 				/**
      * Set the method to use to store the component display status
      * @prop
-     * @values 	cookie,localStorage,sessionStorage
+     * @values 	cookie,localStorage,sessionStorage,ironDb
      * @type 	{String}
      */
-				method: 'cookie',
+				method: 'ironDb',
 
 				/**
      * Set the name used to save the cookie / localStorage or sessionStorage
