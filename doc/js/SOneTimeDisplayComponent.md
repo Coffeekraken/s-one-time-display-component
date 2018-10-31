@@ -30,7 +30,7 @@ This webcomponent does not provide any default css so you will have to handle th
 
 ## Attributes
 
-Here's the list of available attribute to set on the element.
+Here's the list of available attribute(s).
 
 ### timeout
 
@@ -45,11 +45,11 @@ Default : **3600 * 24 * 365**
 
 Set the method to use to store the component display status
 
-Values : **cookie,localStorage,sessionStorage**
+Values : **cookie,localStorage,sessionStorage,ironDb**
 
 Type : **{ [String](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/String) }**
 
-Default : **cookie**
+Default : **ironDb**
 
 
 ### name
