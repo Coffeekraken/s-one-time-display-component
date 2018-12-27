@@ -16,7 +16,7 @@ var _jsCookie = require('js-cookie');
 
 var _jsCookie2 = _interopRequireDefault(_jsCookie);
 
-var _ironDb = require('iron-db');
+var _immortalDb = require('immortal-db');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -141,8 +141,8 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 				case 'sessionstorage':
 					sessionStorage.removeItem(this.props.name);
 					break;
-				case 'irondb':
-					_ironDb.IronDB.remove(this.props.name);
+				case 'immortaldb':
+					_immortalDb.ImmortalDB.remove(this.props.name);
 					break;
 			}
 			// maintain chainability
@@ -223,7 +223,7 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 						switch (_context2.prev = _context2.next) {
 							case 0:
 								_context2.t0 = this.props.method.toLowerCase();
-								_context2.next = _context2.t0 === 'cookie' ? 3 : _context2.t0 === 'localstorage' ? 4 : _context2.t0 === 'sessionstorage' ? 5 : _context2.t0 === 'irondb' ? 6 : 11;
+								_context2.next = _context2.t0 === 'cookie' ? 3 : _context2.t0 === 'localstorage' ? 4 : _context2.t0 === 'sessionstorage' ? 5 : _context2.t0 === 'immortaldb' ? 6 : 11;
 								break;
 
 							case 3:
@@ -238,7 +238,7 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 							case 6:
 								_context2.t1 = parseInt;
 								_context2.next = 9;
-								return _ironDb.IronDB.get(this.props.name);
+								return _immortalDb.ImmortalDB.get(this.props.name);
 
 							case 9:
 								_context2.t2 = _context2.sent;
@@ -284,8 +284,8 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 				case 'sessionstorage':
 					sessionstorage.setItem(this.props.name, parseInt(new Date().getTime() / 1000));
 					break;
-				case 'irondb':
-					_ironDb.IronDB.set(this.props.name, parseInt(new Date().getTime() / 1000));
+				case 'immortaldb':
+					_immortalDb.ImmortalDB.set(this.props.name, parseInt(new Date().getTime() / 1000));
 					break;
 			}
 			// dismiss callback
@@ -334,10 +334,10 @@ var SOneTimeDisplayComponent = function (_SWebComponent) {
 				/**
      * Set the method to use to store the component display status
      * @prop
-     * @values 	cookie,localStorage,sessionStorage,ironDb
+     * @values 	cookie,localStorage,sessionStorage,immortaldb
      * @type 	{String}
      */
-				method: 'ironDb',
+				method: 'immortaldb',
 
 				/**
      * Set the name used to save the cookie / localStorage or sessionStorage

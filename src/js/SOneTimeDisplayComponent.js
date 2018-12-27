@@ -1,6 +1,6 @@
 import SWebComponent from 'coffeekraken-sugar/js/core/SWebComponent'
 import Cookies from 'js-cookie'
-import { IronDB } from 'iron-db'
+import { ImmortalDB } from 'immortal-db'
 
 /**
  * @class 	SOneTimeDisplayComponent
@@ -58,10 +58,10 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 			/**
 			 * Set the method to use to store the component display status
 			 * @prop
-			 * @values 	cookie,localStorage,sessionStorage,ironDb
+			 * @values 	cookie,localStorage,sessionStorage,immortaldb
 			 * @type 	{String}
 			 */
-			method : 'ironDb',
+			method : 'immortaldb',
 
 			/**
 			 * Set the name used to save the cookie / localStorage or sessionStorage
@@ -171,8 +171,8 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 			case 'sessionstorage':
 				sessionStorage.removeItem(this.props.name);
 			break;
-			case 'irondb':
-				IronDB.remove(this.props.name);
+			case 'immortaldb':
+				ImmortalDB.remove(this.props.name);
 			break;
 		}
 		// maintain chainability
@@ -212,8 +212,8 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 				return parseInt(localStorage.getItem(this.props.name));
 			case 'sessionstorage':
 				return parseInt(sessionStorage.getItem(this.props.name));
-			case 'irondb':
-				return parseInt(await IronDB.get(this.props.name));
+			case 'immortaldb':
+				return parseInt(await ImmortalDB.get(this.props.name));
 			default:
 				throw 'You need to set a method through settings in order to use this component... {cookie|localStorage|sessionStorage}';
 		}
@@ -238,8 +238,8 @@ export default class SOneTimeDisplayComponent extends SWebComponent {
 			case 'sessionstorage':
 				sessionstorage.setItem(this.props.name, parseInt(new Date().getTime() / 1000));
 			break;
-			case 'irondb':
-				IronDB.set(this.props.name, parseInt(new Date().getTime() / 1000));
+			case 'immortaldb':
+				ImmortalDB.set(this.props.name, parseInt(new Date().getTime() / 1000));
 			break;
 		}
 		// dismiss callback
