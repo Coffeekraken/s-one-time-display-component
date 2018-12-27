@@ -45,11 +45,11 @@ Default : **3600 * 24 * 365**
 
 Set the method to use to store the component display status
 
-Values : **cookie,localStorage,sessionStorage,ironDb**
+Values : **cookie,localStorage,sessionStorage,immortaldb**
 
 Type : **{ [String](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/String) }**
 
-Default : **ironDb**
+Default : **immortaldb**
 
 
 ### name
