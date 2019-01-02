@@ -1,6 +1,6 @@
 {
   "name": "coffeekraken-s-one-time-display-component",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Webcomponent that provide the ability to display itself depending on a cookie or a local|sessionStorage flag",
   "main": "dist/index.js",
   "homepage": "http://coffeekraken.io",
@@ -67,12 +67,13 @@
     ]
   },
   "dependencies": {
-    "coffeekraken-sugar": "^1.0.5",
+    "coffeekraken-sugar": "^1.0.34",
+    "coffeekraken-s-button-component": "^1.0.1",
+    "coffeekraken-s-typography-component": "^1.0.1",
     "immortal-db": "^1.0.1",
     "js-cookie": "^2.2.0"
   },
   "devDependencies": {
-    "@webcomponents/webcomponentsjs": "^2.0.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.0.1",
@@ -82,16 +83,13 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.7.0",
-    "coffeekraken-code-playground": "^1.0.0",
+    "coffeekraken-code-playground": "^1.0.11",
     "coffeekraken-docblock-to-markdown": "^1.0.0",
-    "coffeekraken-s-button-component": "^1.0.1",
-    "coffeekraken-s-typography-component": "^1.0.1",
     "coffeekraken-scripts-stack": "^1.0.1",
     "git-changelog": "^1.1.2",
     "http-server": "^0.11.1",
     "node-sass": "^4.0.0",
-    "webcomponents.js": "^0.7.24",
-    "webpack": "^4.0.0",
+    "webpack": "^4.28.3",
     "webpack-cli": "^3.0.3"
   }
 }

@@ -29,6 +29,8 @@
 
 Webcomponent that provide the ability to display itself depending on a cookie, a local|sessionStorage or an irondb flag.
 
+[![View demo](http://components.coffeekraken.io/assets/img/view-demo.png)](http://components.coffeekraken.io/app/s-one-time-display-component)
+
 ## Table of content
 
 1. **[Demo](http://components.coffeekraken.io/app/s-one-time-display-component)**
