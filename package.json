@@ -67,9 +67,10 @@
     ]
   },
   "dependencies": {
-    "coffeekraken-sugar": "^1.0.34",
+    "@babel/polyfill": "^7.2.5",
     "coffeekraken-s-button-component": "^1.0.1",
     "coffeekraken-s-typography-component": "^1.0.1",
+    "coffeekraken-sugar": "^1.0.34",
     "immortal-db": "^1.0.1",
     "js-cookie": "^2.2.0"
   },
@@ -81,7 +82,6 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-export-default": "^7.0.0-alpha.20",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "coffeekraken-code-playground": "^1.0.11",
     "coffeekraken-docblock-to-markdown": "^1.0.0",

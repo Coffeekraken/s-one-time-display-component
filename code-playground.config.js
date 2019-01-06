@@ -69,6 +69,7 @@ module.exports = {
 		js : {
 			language : 'js',
 			data : `
+				import '@babel/polyfill'
 				import SOneTimeDisplayComponent from './dist/index'
 			`
 		}
