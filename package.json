@@ -1,6 +1,6 @@
 {
   "name": "coffeekraken-s-one-time-display-component",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Webcomponent that provide the ability to display itself depending on a cookie or a local|sessionStorage flag",
   "main": "dist/index.js",
   "homepage": "http://coffeekraken.io",
